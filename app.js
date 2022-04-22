@@ -1,6 +1,6 @@
 const section = document.querySelector('section');
 const playerLivesCount = document.querySelector('.playerLivesCount');
-let playerLives = 6;
+let playerLives = 60;
 
 playerLivesCount.textContent = playerLives;
 
@@ -11,7 +11,7 @@ const getData = () => [
     { imgSrc: "./images/fkatwigs.jpeg", id: 3, name: "fka twigs" },
     { imgSrc: "./images/fleetwood.jpeg", id: 4, name: "fleetwood" },
     { imgSrc: "./images/joy-division.jpeg", id: 5, name: "joy division" },
-    { imgSrc: "./images/ledzep.jpeg", id: 6, name: "lep zeppelin" },
+    { imgSrc: "./images/ledzep.jpeg", id: 6, name: "led zeppelin" },
     { imgSrc: "./images/metallica.jpeg", id: 7, name: "metallica" },
     { imgSrc: "./images/pinkfloyd.jpeg", id: 8, name: "pink floyd" },
     { imgSrc: "./images/beatles.jpeg", id: 9, name: "beatles" },
@@ -61,6 +61,7 @@ const checkCards = (e) => {
     const clickedCard = e.target;
     clickedCard.classList.add('flipped');
     const flippedCards = document.querySelectorAll('.flipped');
+    const toggledCards = document.querySelectorAll('.toggleCard');
 
     if (flippedCards.length === 2) {
         if (flippedCards[0].getAttribute('name') === flippedCards[1].getAttribute('name')) {
@@ -77,14 +78,16 @@ const checkCards = (e) => {
             playerLives--;
             playerLivesCount.textContent = playerLives;
             if (playerLives === 0) {
-                alert("You lost your lives!");
-                restart();
+                restart("You lost your lives!");
             }
         }
     }
+    if (toggledCards.length === 16) {
+        restart("You won!");
+    }
 }
 
-const restart = () => {
+const restart = (text) => {
     let cardData = randomize();
     faces = document.querySelectorAll('.face');
     cards = document.querySelectorAll('.card');
@@ -96,6 +99,7 @@ const restart = () => {
     });
     playerLives = 6;
     playerLivesCount.textContent = playerLives;
+    alert(text);
 }
 
 cardGenerator();
