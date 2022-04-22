@@ -1,6 +1,6 @@
 const section = document.querySelector('section');
 const playerLivesCount = document.querySelector('.playerLivesCount');
-let playerLives = 60;
+let playerLives = 6;
 
 playerLivesCount.textContent = playerLives;
 
