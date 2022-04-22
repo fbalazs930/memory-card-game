@@ -32,6 +32,7 @@ section {
     height: 100%;
     position: absolute;
     pointer-events: none;
+    cursor: pointer;
 }
 
 .back {

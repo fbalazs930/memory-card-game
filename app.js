@@ -1,6 +1,6 @@
 const section = document.querySelector('section');
 const playerLivesCount = document.querySelector('.playerLivesCount');
-const playerLives = 6;
+let playerLives = 6;
 
 playerLivesCount.textContent = playerLives;
 
@@ -64,12 +64,38 @@ const checkCards = (e) => {
 
     if (flippedCards.length === 2) {
         if (flippedCards[0].getAttribute('name') === flippedCards[1].getAttribute('name')) {
-            console.log("match")
+            flippedCards.forEach((card) => {
+                card.classList.remove('flipped');
+                card.style.pointerEvents = 'none';
+            })
         }
-        else{
-            console.log("not match")
+        else {
+            flippedCards.forEach((card) => {
+                card.classList.remove('flipped');
+                setTimeout(() => card.classList.remove('toggleCard'), 1000);
+            });
+            playerLives--;
+            playerLivesCount.textContent = playerLives;
+            if (playerLives === 0) {
+                alert("You lost your lives!");
+                restart();
+            }
         }
     }
+}
+
+const restart = () => {
+    let cardData = randomize();
+    faces = document.querySelectorAll('.face');
+    cards = document.querySelectorAll('.card');
+    cardData.forEach((item, index) => {
+        cards[index].classList.remove('toggleCard');
+        cards[index].style.pointerEvents = "all";
+        faces[index].src = item.imgSrc;
+        cards[index].setAttribute('name', item.name);
+    });
+    playerLives = 6;
+    playerLivesCount.textContent = playerLives;
 }
 
 cardGenerator();
